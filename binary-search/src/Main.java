@@ -3,6 +3,7 @@ public class Main {
         BinarySearch binarySearch = new BinarySearch();
         int[] arr = {1, 2, 3, 4};
         binarySearch.setArr(arr);
-        System.out.println(binarySearch.search(0, arr.length - 1, 6));
+        System.out.println(binarySearch.search(0, arr.length - 1, 2));
+        System.out.println(binarySearch.searchIterative(1));
     }
 }
