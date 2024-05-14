@@ -31,7 +31,7 @@ public class LongestCommonSubsequence {
         int j = text2.length() - 1;
         StringBuilder lcs = new StringBuilder();
 
-        while (!(i <= 1 && j <= 1)) {
+        while (i > 0 && j > 0 && !(i == 1 && j == 1)) {
             if (text1.charAt(i) == text2.charAt(j)) {
                 lcs.append(text1.charAt(i));
                 i--;
