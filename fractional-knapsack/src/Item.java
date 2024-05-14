@@ -1,18 +1,18 @@
 public class Item {
-    private final int profit;
-    private int weight;
+    private final double profit;
+    private final int weight;
     private final double ratio;
 
-    public Item(int profit, int weight) {
+    public Item(double profit, int weight) {
         if (weight == 0) {
             throw new IllegalArgumentException("Weight can't be zero");
         }
         this.profit = profit;
         this.weight = weight;
-        this.ratio = (double) profit / weight;
+        this.ratio = profit / weight;
     }
 
-    public int getProfit() {
+    public double getProfit() {
         return profit;
     }
 
@@ -20,11 +20,15 @@ public class Item {
         return weight;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
     public double getRatio() {
         return ratio;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "profit=" + profit +
+                ", weight=" + weight +
+                '}';
     }
 }
