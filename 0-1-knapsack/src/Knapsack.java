@@ -40,9 +40,10 @@ public class Knapsack {
         int remainingWeight = capacity;
         int i = availableItems.size() - 1;
         while (remainingWeight > 0 && i >= 1) {
+            Item item = availableItems.get(i);
             if (table[i][remainingWeight] > table[i - 1][remainingWeight]) {
-                filledItems.add(availableItems.get(i));
-                remainingWeight -= availableItems.get(i).getWeight();
+                filledItems.add(item);
+                remainingWeight -= item.getWeight();
             }
             i--;
         }
