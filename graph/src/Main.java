@@ -11,5 +11,6 @@ public class Main {
         g.addEdges(7, new int[] { 5, 6, 8 });
         g.addEdges(8, new int[] { 6, 7 });
         g.bfs();
+        g.dfs();
     }
 }

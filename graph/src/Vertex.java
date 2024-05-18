@@ -18,8 +18,8 @@ public class Vertex {
         return name;
     }
 
-    public boolean isVisited() {
-        return visited;
+    public boolean isNotVisited() {
+        return !visited;
     }
 
     public void setVertexLinks(Edge[] vertexLinks) {

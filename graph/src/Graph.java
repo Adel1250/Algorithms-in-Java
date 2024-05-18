@@ -23,13 +23,13 @@ public class Graph {
         Queue<Vertex> queue = new LinkedList<>();
         queue.add(vertices[0]);
         vertices[0].setVisited(true);
-        System.out.println("Edges:");
+        System.out.println("BFS Edges:");
         while (!queue.isEmpty()) {
             Vertex currentVertex = queue.poll();
             Edge[] destinations = currentVertex.getVertexLinks();
             for (Edge destination : destinations) {
                 Vertex target = destination.getTarget();
-                if (!target.isVisited()) {
+                if (target.isNotVisited()) {
                     queue.add(target);
                     target.setVisited(true);
                     destination.setTarget(target);
@@ -37,6 +37,31 @@ public class Graph {
                 }
             }
             currentVertex.setVertexLinks(destinations);
+        }
+        restoreVertices();
+    }
+
+    public void dfs() {
+        System.out.println("DFS Edges:");
+        dfsRecursion((vertices[0]));
+        restoreVertices();
+    }
+
+    private void dfsRecursion(Vertex currentVertex) {
+        currentVertex.setVisited(true);
+        Edge[] destinations = currentVertex.getVertexLinks();
+        for (Edge destination : destinations) {
+            Vertex target = destination.getTarget();
+            if (target.isNotVisited()) {
+                System.out.println(currentVertex.getName() + " - " + target.getName());
+                dfsRecursion(target);
+            }
+        }
+    }
+
+    private void restoreVertices() {
+        for (Vertex vertex : vertices) {
+            vertex.setVisited(false);
         }
     }
 }
