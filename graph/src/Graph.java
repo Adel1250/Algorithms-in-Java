@@ -14,7 +14,15 @@ public class Graph {
     public void addEdges(int vertexIndex, int[] targets) {
         Edge[] vertexLinks = new Edge[targets.length];
         for (int i = 0; i < targets.length; i++) {
-            vertexLinks[i] = new Edge(0, vertices[i], vertices[targets[i]]);
+            vertexLinks[i] = new Edge(0, vertices[targets[i]]);
+        }
+        vertices[vertexIndex].setVertexLinks(vertexLinks);
+    }
+
+    public void addEdges(int vertexIndex, int[] targets, double[] weights) {
+        Edge[] vertexLinks = new Edge[targets.length];
+        for (int i = 0; i < targets.length; i++) {
+            vertexLinks[i] = new Edge(weights[i], vertices[targets[i]]);
         }
         vertices[vertexIndex].setVertexLinks(vertexLinks);
     }
@@ -59,9 +67,42 @@ public class Graph {
         }
     }
 
+    public void dijkstra() {
+        System.out.println("Dijkstra:");
+        for (int i = 1; i < vertices.length; i++) {
+            vertices[i].setTotalLength(Double.MAX_VALUE);
+        }
+        for (Vertex vertex : vertices) {
+            if (vertex.getVertexLinks() == null)
+                continue;
+            for (Edge edge : vertex.getVertexLinks()) {
+                double newLength = edge.getWeight() + vertex.getTotalLength();
+                if (newLength < edge.getTarget().getTotalLength()) {
+                    Vertex target = edge.getTarget();
+                    target.setSourceOfTotalLength(vertex);
+                    target.setTotalLength(newLength);
+                    edge.setTarget(target);
+                }
+            }
+        }
+
+        // Path Traversal
+        StringBuilder path = new StringBuilder(vertices[vertices.length - 1].getName());
+        Vertex v = vertices[vertices.length - 1];
+        while (v.getSourceOfTotalLength() != null) {
+            path.insert(0, v.getSourceOfTotalLength().getName() + " - ");
+            v = v.getSourceOfTotalLength();
+        }
+        System.out.println("Path: " + path);
+        System.out.println("Total Length: " + vertices[vertices.length - 1].getTotalLength());
+        restoreVertices();
+    }
+
     private void restoreVertices() {
         for (Vertex vertex : vertices) {
             vertex.setVisited(false);
+            vertex.setTotalLength(0);
+            vertex.setSourceOfTotalLength(null);
         }
     }
 }
